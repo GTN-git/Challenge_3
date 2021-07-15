@@ -1,38 +1,95 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+var passwordLength;
+var upperCase;
+var lowerCase;
+var numeric;
+var specialCharacters;
 
 // Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+ 
 
+function generatePassword() {
+  // Password Length Set
+  passwordLength = parseInt(
+    prompt("Please choose a Password length between 8 and 128")
+  );
+
+  // Password Logic Parameters User set
+  if (
+    passwordLength === "" ||
+    passwordLength === null ||
+    passwordLength < 8 ||
+    passwordLength > 128 ||
+    isNaN(passwordLength)
+  ) {
+    alert(
+      "Invalid Selection please choose a password between 8-128 characters"
+    );
+    return;
+  } else {
+    passwordCriteria();
+  }
 }
 
-function generatePassword () {
-  // Password Length Set
- passwordLength = prompt ("Please choose a Password length between 8 and 128")
+// Password criteria set
+function passwordCriteria() {
+  upperCase = window.confirm("Would you like to include UpperCase Characters?");
 
-if (passwordLength === "" || passwordLength === null || passwordLength < 8 || passwordLength > 128) {
-  alert ("Invalid Selection please choose a password between 8-128 characters");
-  return generatePassword();
+  lowerCase = window.confirm("Would you like to include LowerCase Characters?");
 
-} else {
-passwordCriteria();
-};
+  numeric = window.confirm("Would you like to include Numeric Characters?");
 
-function passwordCriteria () {
-  var upperCase = window.confirm("Would you like to include UpperCase Characters?");
+  specialCharacters = window.confirm(
+    "Would you like to include Special Characters?"
+  );
+
+  // If at least 1 of 4 are true, move on to actual generation of password
+  if (!upperCase && !lowerCase && !numeric && !specialCharacters) {
+    alert("Please select at least 1 criteria");
+    return;
+  } else {
+    setPassword();
+  }
+}
+
+function setPassword() {
+  var upperCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var lowerCharacters = "abcdefghijklmnopqrstuvwxyz";
+  var numerical = "0123456789";
+  var special = "!@#$%^&*()";
+  var masterString = ""
   
-  var lowerCase = window.confirm("Would you like to include LowerCase Characters?");
+  if(upperCase) {
+    masterString = masterString + upperCharacters
+  }
+  if(lowerCase) {
+    masterString = masterString + lowerCharacters
+  }
 
-  var numeric = window.confirm("Would you like to include Numeric Characters?");
+  if(numeric) {
+    masterString = masterString + numerical
+  }
 
-  var specialCharacters = window.confirm("Would you like to include Special Characters?");
-};
+  if(specialCharacters) {
+    masterString = masterString + special
+  }
 
-};
+  var concatenate = "";
+  for (let i = 0; i < passwordLength; i++) {
+    var randomNumber = Math.floor(Math.random() * masterString.length);
+    var randomCharacter = masterString[randomNumber];
+    concatenate = concatenate + randomCharacter;
+  }
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = concatenate;
+}
+
+// generation of password - use the selected criteria, run through arrays and generate random password
+
+// return the pass word in the <div class="card-body"> <textarea readonly id="password" placeholder="Your Secure Password"
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", generatePassword);
