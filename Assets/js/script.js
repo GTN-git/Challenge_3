@@ -8,8 +8,6 @@ var specialCharacters;
 
 // Write password to the #password input
 
- 
-
 function generatePassword() {
   // Password Length Set
   passwordLength = parseInt(
@@ -53,27 +51,27 @@ function passwordCriteria() {
     setPassword();
   }
 }
-
+// strings to run through for password criteria
 function setPassword() {
   var upperCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var lowerCharacters = "abcdefghijklmnopqrstuvwxyz";
   var numerical = "0123456789";
   var special = "!@#$%^&*()";
-  var masterString = ""
-  
-  if(upperCase) {
-    masterString = masterString + upperCharacters
+  var masterString = "";
+
+  if (upperCase) {
+    masterString = masterString + upperCharacters;
   }
-  if(lowerCase) {
-    masterString = masterString + lowerCharacters
+  if (lowerCase) {
+    masterString = masterString + lowerCharacters;
   }
 
-  if(numeric) {
-    masterString = masterString + numerical
+  if (numeric) {
+    masterString = masterString + numerical;
   }
 
-  if(specialCharacters) {
-    masterString = masterString + special
+  if (specialCharacters) {
+    masterString = masterString + special;
   }
 
   var concatenate = "";
@@ -87,9 +85,6 @@ function setPassword() {
   passwordText.value = concatenate;
 }
 
-// generation of password - use the selected criteria, run through arrays and generate random password
-
-// return the pass word in the <div class="card-body"> <textarea readonly id="password" placeholder="Your Secure Password"
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", generatePassword);
